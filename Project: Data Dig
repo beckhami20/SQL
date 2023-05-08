@@ -1,4 +1,5 @@
-/* Put your data in here and query it! */
+--CREATE TABLE WITH TOP MOVIES
+
 CREATE TABLE topmovies(
    Rank        INTEGER,
    Title       TEXT,
@@ -112,6 +113,7 @@ INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,
 INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,OverseasPct,Year) VALUES (99,'Casino Royale','Sony',599.00,167.40,0.28,431.60,0.72,2006);
 INSERT INTO topmovies(Rank,Title,Studio,Worldwide,Domestic,DomesticPct,Overseas,OverseasPct,Year) VALUES (100,'Tangled','BV',591.80,200.80,0.34,391.00,0.66,2010);
 
+--DISPLAY AGGREGATE FUNCTION ON TABLE 'TOP MOVIES'
 /* AGGREGATE */
 
 SELECT title, AVG(rank) AS average_rank, AVG(year) AS average_year
@@ -123,13 +125,14 @@ FROM topmovies;
 SELECT title, MIN(rank) AS min_rank, MIN(year) AS minimum_year
 FROM topmovies;
 
+--DISPLAY AND OR FUNCTION ON TABLE 'TOP MOVIES'
 /* AND OR */
 
 SELECT overseas, year, rank FROM topmovies WHERE Year > 1980 AND rank < 25 ORDER BY rank;
 
 SELECT overseas, year, rank FROM topmovies WHERE Year > 1980 OR rank > 25 ORDER BY year;
 
-
+--DISPLAY HAVING FUNCTION ON TABLE 'TOP MOVIES'
 /* HAVING */
 
 SELECT title, SUM(domestic) AS total_domestic
@@ -143,7 +146,7 @@ FROM "topmovies" GROUP BY title
 HAVING total_domestic < 300
 ORDER BY total_domestic desc;
 
-
+--DISPLAY CASE FUNCTION ON TABLE 'TOP MOVIES' WITH YEAR DESCINDING
 /* CASE */
 
 SELECT title, year,
