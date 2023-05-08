@@ -1,0 +1,194 @@
+--CHALLENGE 1: CLOTHING ALTERATIONS - SHOWING PRICE LIST--
+CREATE TABLE clothes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT,
+    design TEXT);
+    
+INSERT INTO clothes (type, design)
+    VALUES ("dress", "pink polka dots");
+INSERT INTO clothes (type, design)
+    VALUES ("pants", "rainbow tie-dye");
+INSERT INTO clothes (type, design)
+    VALUES ("blazer", "black sequin");
+
+
+ALTER TABLE clothes ADD price REAL;
+SELECT * FROM clothes;
+
+UPDATE clothes SET price = 10 where id = 1;
+UPDATE clothes SET price = 20 where id = 2;
+UPDATE clothes SEt price = 30 where id = 3;
+SELECT * FROM clothes;
+
+INSERT INTO clothes (type, design) VALUES ("shirt", "gold");
+SELECT * FROM clothes;
+
+
+
+
+
+
+
+
+
+--CHALLENGE 2: UPDATING AND DELETING INFORMATION FROM TABLE--
+CREATE table documents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    content TEXT,
+    author TEXT);
+    
+INSERT INTO documents (author, title, content)
+    VALUES ("Puff T.M. Dragon", "Fancy Stuff", "Ceiling wax, dragon wings, etc.");
+INSERT INTO documents (author, title, content)
+    VALUES ("Puff T.M. Dragon", "Living Things", "They're located in the left ear, you know.");
+INSERT INTO documents (author, title, content)
+    VALUES ("Jackie Paper", "Pirate Recipes", "Cherry pie, apple pie, blueberry pie.");
+INSERT INTO documents (author, title, content)
+    VALUES ("Jackie Paper", "Boat Supplies", "Rudder - guitar. Main mast - bed post.");
+INSERT INTO documents (author, title, content)
+    VALUES ("Jackie Paper", "Things I'm Afraid Of", "Talking to my parents, the sea, giant pirates, heights.");
+
+SELECT * FROM documents;
+
+UPDATE documents
+SET author = "Jackie Draper"
+WHERE author = "Jackie Paper";
+SELECT * FROM documents;
+
+DELETE FROM documents
+WHERE title = "Things I'm Afraid Of";
+SELECT * FROM documents;
+
+
+
+
+
+
+
+
+--CHALLENGE 3: USING SEQUELS --
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    released INTEGER,
+    sequel_id INTEGER);
+
+INSERT INTO movies 
+    VALUES (1, "Harry Potter and the Philosopher's Stone", 2001, 2);
+INSERT INTO movies 
+    VALUES (2, "Harry Potter and the Chamber of Secrets", 2002, 3);
+INSERT INTO movies 
+    VALUES (3, "Harry Potter and the Prisoner of Azkaban", 2004, 4);
+INSERT INTO movies 
+    VALUES (4, "Harry Potter and the Goblet of Fire", 2005, 5);
+INSERT INTO movies 
+    VALUES (5, "Harry Potter and the Order of the Phoenix ", 2007, 6);
+INSERT INTO movies 
+    VALUES (6, "Harry Potter and the Half-Blood Prince", 2009, 7);
+INSERT INTO movies 
+    VALUES (7, "Harry Potter and the Deathly Hallows – Part 1", 2010, 8);
+INSERT INTO movies 
+    VALUES (8, "Harry Potter and the Deathly Hallows – Part 2", 2011, NULL);
+
+SELECT movies.title, sequel.title AS movie_title
+FROM movies
+left outer join movies sequel
+on movies.sequel_id = sequel.id;
+    
+    
+    
+    
+
+
+--CHALLENGE 4: COMBINING TABLES USING JOIN FUNCTION--
+CREATE TABLE persons (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER);
+    
+INSERT INTO persons (fullname, age) VALUES ("Bobby McBobbyFace", "12");
+INSERT INTO persons (fullname, age) VALUES ("Lucy BoBucie", "25");
+INSERT INTO persons (fullname, age) VALUES ("Banana FoFanna", "14");
+INSERT INTO persons (fullname, age) VALUES ("Shish Kabob", "20");
+INSERT INTO persons (fullname, age) VALUES ("Fluffy Sparkles", "8");
+
+CREATE table hobbies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER,
+    name TEXT);
+    
+INSERT INTO hobbies (person_id, name) VALUES (1, "drawing");
+INSERT INTO hobbies (person_id, name) VALUES (1, "coding");
+INSERT INTO hobbies (person_id, name) VALUES (2, "dancing");
+INSERT INTO hobbies (person_id, name) VALUES (2, "coding");
+INSERT INTO hobbies (person_id, name) VALUES (3, "skating");
+INSERT INTO hobbies (person_id, name) VALUES (3, "rowing");
+INSERT INTO hobbies (person_id, name) VALUES (3, "drawing");
+INSERT INTO hobbies (person_id, name) VALUES (4, "coding");
+INSERT INTO hobbies (person_id, name) VALUES (4, "dilly-dallying");
+INSERT INTO hobbies (person_id, name) VALUES (4, "meowing");
+
+CREATE table friends (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person1_id INTEGER,
+    person2_id INTEGER);
+
+INSERT INTO friends (person1_id, person2_id)
+    VALUES (1, 4);
+INSERT INTO friends (person1_id, person2_id)
+    VALUES (2, 3);
+    
+SELECT persons.fullname, hobbies.name
+FROM persons
+JOIN hobbies
+ON persons.id = hobbies.person_id;
+
+SELECT a.fullname, b.fullname FROM friends
+    JOIN persons a
+    ON friends.person1_id = a.id
+    JOIN persons b
+    ON friends.person2_id = b.id;
+    
+    
+    
+    
+
+
+--CHALLENGE 5: DISPLAYING LEFT OUTER JOIN FUNCTION--
+CREATE TABLE customers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT);
+    
+INSERT INTO customers (name, email) VALUES ("Doctor Who", "doctorwho@timelords.com");
+INSERT INTO customers (name, email) VALUES ("Harry Potter", "harry@potter.com");
+INSERT INTO customers (name, email) VALUES ("Captain Awesome", "captain@awesome.com");
+
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER,
+    item TEXT,
+    price REAL);
+
+INSERT INTO orders (customer_id, item, price)
+    VALUES (1, "Sonic Screwdriver", 1000.00);
+INSERT INTO orders (customer_id, item, price)
+    VALUES (2, "High Quality Broomstick", 40.00);
+INSERT INTO orders (customer_id, item, price)
+    VALUES (1, "TARDIS", 1000000.00);
+    
+
+
+SELECT customers.name, customers.email, orders.item, orders.price
+    FROM customers
+    LEFT OUTER JOIN orders
+    ON customers.id = orders.customer_id;
+    
+SELECT customers.name, customers.email, sum(orders.price) AS total_money
+    FROM customers
+    LEFT OUTER JOIN orders
+    ON customers.id = orders.customer_id
+    GROUP BY customers.id
+    ORDER BY price desc;
+    
+    
