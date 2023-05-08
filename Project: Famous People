@@ -1,0 +1,33 @@
+/* Create table about the people and what they do here - DISPLAYING A JOIN */
+
+CREATE TABLE Country_Artists (id INTEGER primary key, name TEXT, age INTEGER);
+
+INSERT INTO Country_Artists (name, age) VALUES ("Blake Shelton", 46);
+INSERT INTO Country_Artists (name, age) VALUES ("Carrie Underwood", 39);
+INSERT INTO Country_Artists (name, age) VALUES (
+"Miranda Lambert", 38);
+INSERT INTO Country_Artists (name, age) VALUES ("Maren Morris", 32);
+INSERT INTO Country_Artists (name, age) VALUES ("Kelsi Ballarini", 28);
+INSERT INTO Country_Artists (name, age) VALUES ("Luke Bryan", 46);
+INSERT INTO Country_Artists (name, age) VALUES ("Brad Paisley", 49);
+INSERT INTO Country_Artists (name, age) VALUES ("Kelly Clarkson", 40);
+
+CREATE TABLE Place_of_residence (
+    id INTEGER primary key,
+    state TEXT);
+    
+INSERT INTO Place_of_residence (state) VALUES ("Oklahoma");
+INSERT INTO Place_of_residence (state) VALUES ("Tennessee");
+INSERT INTO Place_of_residence (state) VALUES ("Tennessee");
+INSERT INTO Place_of_residence (state) VALUES ("Tennessee");
+INSERT INTO Place_of_residence (state) VALUES ("Tennessee");
+INSERT INTO Place_of_residence (state) VALUES ("Tennessee");
+INSERT INTO Place_of_residence (state) VALUES ("Tennessee");
+INSERT INTO Place_of_residence (state) VALUES ("California");
+
+
+Select country_artists.name, place_of_residence.state, age
+From Country_Artists
+    JOIN Place_of_residence
+    ON country_artists.id = place_of_residence.id
+ORDER BY age desc;
