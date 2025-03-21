@@ -1,4 +1,4 @@
-/* Create table about the people and what they do here - DISPLAYING A JOIN */
+  /* Create table about the people and what they do here - DISPLAYING A JOIN */
 
 CREATE TABLE Country_Artists (id INTEGER primary key, name TEXT, age INTEGER);
 
