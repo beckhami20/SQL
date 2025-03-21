@@ -5,4 +5,4 @@ INSERT INTO todo_list VALUES (3, "Learn some stuff on KA", 30);
 INSERT INTO todo_list VALUES (4, "Laundry", 45);
 INSERT INTO todo_list VALUES (5,"Make a Tableau dashbord", 30);
 
-SELECT SUM(minutes) from todo_list;
+SELECT SUM(minutes) from todo_list;   
